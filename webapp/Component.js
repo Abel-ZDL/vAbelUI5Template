@@ -16,7 +16,8 @@ sap.ui.define([
 		 * @public
 		 * @override
 		 * The Component.js file holds the app setup. The init function of the component is automatically started by SAPUI5 when the component is instantiated.
-		 * Your component extends UIComponent. If you are overriding the init function of your component, you have to make sure that you call the init function of UIComponent and initialize the router afterwards.
+		 * Your component extends UIComponent. If you are overriding the init function of your component, 
+		 * you have to make sure that you call the init function of UIComponent and initialize the router afterwards.
 		 */
 		init: function() {
 			// call the base component's init function

@@ -51,7 +51,7 @@ sap.ui.base.Object.extend("foo.bar.MyClass", /** @lends foo.bar.MyClass */ {
 		 *
 		 * @private
 		 */
-		this.mId = sId || Utils.createGUID();
+// 		this.mId = sId || Utils.createGUID();
 	},
 
 	// now add further methods to that prototype

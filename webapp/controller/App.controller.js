@@ -34,8 +34,7 @@ sap.ui.define([
 			 * @private
 			 */
 			this._bReady = false; // ready to handle requests
-			
-			
+
 			//this.getRouter().attachRoutePatternMatched(this._onRouteMatched, this);
 			//this.getRouter().getRoute("object").attachMatched(this._onRouteMatched, this);
 			//this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
@@ -82,18 +81,17 @@ sap.ui.define([
 			//onExit will be triggered when the view is destroyed.
 			this.getView().destroy();
 		},
-		
-        /* =========================================================== */
+
+		/* =========================================================== */
 		/* Internal methods                                            */
 		/* =========================================================== */
-        /**
+		/**
 		 * @function
 		 * @name _onRouteMatched
 		 * @description clear and add shell styles for pages and set header visibility when route matched
 		 * @param {sap.ui.base.Event} oEvent - The event object
 		 */
-		_onRouteMatched: function(oEvent) {
-		}
+		_onRouteMatched: function(oEvent) {}
 
 	});
 
