@@ -2,14 +2,14 @@
 	"_version": "1.1.0",
 	"sap.app": {
 		"_version": "1.1.0",
-		"id": "vAbelUI5Template",
+		"id": "v.abel.ui.template",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
 			"version": "1.0.0"
 		},
-		"title": "",
-		"description": "",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
 		"resources": "resources.json",
 		"ach": "ach",
 		"sourceTemplate": {
@@ -31,7 +31,7 @@
 		"_version": "1.1.0",
 		"technology": "UI5",
 		"icons": {
-			"icon": "",
+			"icon": "sap-icon://account",
 			"favIcon": "",
 			"phone": "",
 			"phone@2": "",
@@ -43,12 +43,12 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": ["sap_hcb", "sap_bluecrystal"]
+		"supportedThemes": ["sap_hcb", "sap_belize"]
 	},
 	"sap.ui5": {
 		"_version": "1.1.0",
 		"rootView": {
-			"viewName": "vAbelUI5Template.view.View1",
+			"viewName": "v.abel.ui5.template.view.App",
 			"type": "XML"
 		},
 		"dependencies": {
@@ -67,11 +67,12 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "vAbelUI5Template.i18n.i18n"
+					"bundleName": "v.abel.ui5.template.i18n.i18n"
 				}
 			},
 			"": {
-				"dataSource": "mainService"
+			    "type": "sap.ui.model.json.JSONModel",
+				"uri": "model/UIModel.json"
 			}
 		},
 		"resources": {

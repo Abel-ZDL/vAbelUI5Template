@@ -1,35 +1,74 @@
 <!DOCTYPE HTML>
 <html>
-
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta charset="UTF-8">
-
-		<title>vAbelUI5Template</title>
-
+		<title>Abel's UI5 Template</title>
+		<!--Bootstrapping Reference-->
+		<!--Variant for Bootstrapping from Content Delivery Network(CDN)-->
+		<!--sap-ui-core.js is standard variant loading the SAPUI core modules, the jQuery core, as well as some jQuery plugins-->
+		<!--Version&App infor&Debug Sources: shift+ctrl+alt+P-->
+		<!--https://sapui5.hana.ondemand.com/resources/sap-ui-core.js 
+		https://openui5.hana.ondemand.com/resources/sap-ui-core.js-->
+		
+		<!--UI Theme-->
+		<!--data-sap-ui-theme="sap_bluecrystal" theme is deprecated as of version 1.40-->
+		<!--useing the data-sap-ui-theme configuration option to specify the style sheet you want to load for all libraries.-->
+		<!--Library style sheet file /<context-path>/resources/<library-name>/themes/<theme-name>/library.css-->
+		
+		<!--libs-->
+		<!--If a library requires a library that is not specified in the configuration, SAPUI5 loads this library automatically.-->
+		<!--Library bootstrap file /<context-path>/resources/<library-name>/library.js-->
+		<!--sap.ui.getCore().initLibrary-->
+		<!--SAPUI5 provides the sap.ui.getCore().loadLibary() method to load libraries at runtime in addition to the libraries declared in the runtime configuration.-->
+		
+		<!--Initialization Process
+        The initialization process starts after SAPUI5 runtime is loaded.
+        The initialization of the SAPUI5 runtime comprises the following steps:
+        	1. The jQuery plugins, which are mainly located in the jQuery.sap namespace, provide fundamental functionality of SAPUI5, such as the modularization concept, a logging framework, performance measurement, and so on.
+        	2. The global object sap is defined.
+        	3. The sap.ui.core.Core class is executed with all its dependencies.
+        	4. The runtime configuration is determined from different sources.
+        	5. All libraries and modules declared in the configuration as well as their dependencies are loaded.
+        	6. For each loaded library, the CSS file of the configured theme is loaded.
+        	7. When all libraries are loaded and the document is ready, the initEvent of the core is fired and all registered handlers are executed.
+        -->
+        
+        <!--Refer to Configuration Options on Demo Kit for more information-->
 		<script id="sap-ui-bootstrap"
-			src="../../resources/sap-ui-core.js"
+			src="/resources/sap-ui-core.js"
 			data-sap-ui-libs="sap.m"
-			data-sap-ui-theme="sap_bluecrystal"
+			data-sap-ui-theme="sap_belize"
 			data-sap-ui-compatVersion="edge"
-			data-sap-ui-resourceroots='{"vAbelUI5Template": ""}'>
+			data-sap-ui-bindingSyntax="complex"
+			data-sap-ui-preload="async"
+			data-sap-ui-resourceroots='{"v.abel.ui5.template": "./"}'>
 		</script>
-
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-
+		
+		
+		
 		<script>
+            //The document object model (DOM), however, can only be accessed after the controls have been rendered, that is, only after the document is ready.		
+			//Only instances of sap.ui.core.Control or their subclasses can be rendered stand-alone and have a placeAt function. 
+			//Each control extends sap.ui.core.Element that can only be rendered inside controls.
 			sap.ui.getCore().attachInit(function() {
 				new sap.m.Shell({
+				    id : "idShell",
 					app: new sap.ui.core.ComponentContainer({
+					    id : "idComponentContainer",
 						height : "100%",
-						name : "vAbelUI5Template"
+						name : "v.abel.ui5.template"
 					})
 				}).placeAt("content");
+				// sap.ui.xmlview({
+                //  viewName : "v.abel.ui5.template.view.App"
+                // }).placeAt("content");
 			});
 		</script>
 	</head>
-
+	
 	<body class="sapUiBody" id="content">
+	    
 	</body>
-
+	
 </html>

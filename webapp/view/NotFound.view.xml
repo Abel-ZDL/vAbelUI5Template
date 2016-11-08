@@ -1,0 +1,5 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="v.abel.ui5.template.controller.NotFound" displayBlock="true"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<MessagePage id="v-abel-ui-id-notfound" title="{i18n>notFoundTitle}" text="{i18n>notFoundText}" icon="{sap-icon://document}"
+		showHeader="true" showNavButton="true" navButtonPress="onNavBack"></MessagePage>
+</mvc:View>

@@ -1,0 +1,44 @@
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="v.abel.ui5.template.controller.App">
+	<App id="app">
+		<pages>
+			<Page id="page" title="{i18n>appDescription}">
+				<content>
+					<VBox id="vbox0" direction="Column" justifyContent="Center" width="100%">
+						<items>
+							<Label id="label3" text="{i18n>appTitle}" textAlign="Center" width="100%"/>
+							<Button id="idBtnHello" text="Click me" press=".onClick"/>
+						</items>
+					</VBox>
+					<Table id="table" items="{/Version}" noDataText="Drop column list items here and columns in the area above">
+						<items>
+							<ColumnListItem counter="0" id="item1">
+								<cells>
+									<Text id="text5" maxLines="0" text="{Version}"/>
+									<Text id="text6" maxLines="0" text="{Date}"/>
+									<Text id="text7" maxLines="0" text="{Description}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column id="column0">
+								<header>
+									<Label id="label0" text="Version"/>
+								</header>
+							</Column>
+							<Column id="column1">
+								<header>
+									<Label id="label1" text="Date"/>
+								</header>
+							</Column>
+							<Column id="column2">
+								<header>
+									<Label id="label2" text="Description"/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

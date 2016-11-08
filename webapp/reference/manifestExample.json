@@ -1,0 +1,327 @@
+{
+    "_version": "1.4.0" , //mandatory descriptor format version (not w3c)
+
+    //without namespace are some w3c manifest standard attributes
+    "start_url": "index.html",
+
+    "sap.app": { //general application attributes - in sap.app namespace
+        "id": "sap.fiori.appName", //mandatory unique app identifier (must correspond to component name)
+        "type": "application", //mandatory; possible values "application" (default) and "component"
+        "i18n": "", //relative path to the properties file containing descriptor text symbols, default is "i18n/i18n.properties"
+        "applicationVersion": { //mandatory
+            "version": "1.2.2" //mandatory version number incl. patch version
+        },
+        "embeds": [ "mycomponent1" , "subpath/mycomponent2" ], //array of relative paths to the nested manifest.jsons (mandatory if it contains nested manifest.json)
+        "embeddedBy": "../../", //relative path back to the manifest.json of an embedding component or library (mandatory for nested manifest.json)
+        "title": "{{title}}", //mandatory, language-dependent - different languages via server API or on client
+        "subTitle": "{{subtitle}}", //language-dependent - different languages via server API or on client
+        "description": "{{description}}", //language-dependent - different languages via server API or on client
+        "tags": {
+            "keywords": ["{{keyWord1}}","{{keyWord2}}"], //mandatory; general keywords, language-dependent - different languages via server API or on client
+        },
+        "ach" : "PA-FIO" , //application component hierarchy
+        "dataSources": { //used data sources -> ui5-related information stored in sap.ui5 namespace (unique inside the app)
+             "equipment": { //key is alias which is used below in e.g. sap.ui5 ...
+                 "uri": "/sap/opu/odata/snce/PO_S_SRV;v=2/" , //mandatory; version is part of uri, e.g. ";v=2", default is 1
+                 "type": "OData" , //OData (default)|ODataAnnotation|INA|XML|JSON
+                 "settings": { //data-source-type-specific attributes (key, value pairs)
+                     "odataVersion": "2.0" , //possible values: 2.0 (default), 4.0
+                     "annotations": [ "equipmentanno" ], //filled e.g. for SAP Fiori elements
+                     "localUri": "model/metadata.xml" //relative url to local metadata
+        "maxAge": 360 //time in seconds
+        }
+             },
+             "equipmentanno": {
+                 "uri": "/sap/bc/bsp/sap/BSCBN_ANF_EAM/BSCBN_EQUIPMENT_SRV.anno.XML",
+                 "type": "ODataAnnotation",
+                 "settings": { //data-source-type-specific attributes (key, value pairs)
+                     "localUri": "model/annotations.xml" //relative url to local annotation uri
+                 }
+             }
+        },
+        "cdsViews": [ //only to be added if directly used via INA protocol and not if used via OData service
+            "VIEW1", "VIEW2"
+        ],
+        "resources": "resources.json" , //relative url as reference to a file (naming convention: "resources.json") which contains list of all resources needed by the apps
+        "offline": true //true, false (default)
+        "sourceTemplate": { //filled if app had been generated from a template
+                "id": "sap.ui.ui5-template-plugin.1worklist", //mandatory
+                "version": "1.0.0" //mandatory
+        },
+        "destination": { //destination/system alias (can be used at runtime for absolute URL construction; can be either set in code-level descriptor as a logical destination, or later on configuration level with a concrete destination), usually empty for SAPUI5 apps on FeS and filles for legacy apps like WDA/SAP GUI
+            "name": "SAP_ERP_FIN" //mandatory
+        },
+        "openSourceComponents": [ //array of directly used open source libs (not when used via UI5 capsulation)
+            {
+                "name": "D3.js", //mandatory; name of the OS component as appears on the web
+                "packagedWithMySelf": false //indicator whether it is part of the app or not (values true/false)
+            },
+            ...
+        ],
+
+        "crossNavigation": { //cross navigation scopes, inbounds and outbounds
+            "scopes": {
+                "sapSite": {
+                "value": "123" //mandatory; unique ID of a site. The scope is set in runtime programmatically or by specific property. Which scope and scope value to set will be detailed in the documentation or applied by a tool.
+                }
+            },
+            "inbounds": { //mandatory
+                "contactCreate":
+                    {
+                        "semanticObject": "Contact", //mandatory
+                        "action": "create", //mandatory
+                        "icon": "sap-icon://add-contact", //can overwrite sap.ui/icons/icon
+                        "title": "{{title}}", //can overwrite sap.app/title, language-dependent - different languages via server API or on client, see comments below
+                        "subTitle": "{{subtitle}}", //can overwrite sap.app/subTitle, language-dependent - different languages via server API or on client
+                        "info": "{{info}}", //language-dependent; different languages via service API or on client
+                        "indicatorDataSource": { //only needed by FLP currently for dynamic App Launcher
+                            "dataSource": "ppm", //mandatory; reference to sap.app/dataSources
+                            "path": "TaskListSet/$count", //mandatory; relative path to sap.app/dataSources uri
+                            "refresh": 5 //refresh interval
+                        },
+                        "deviceTypes": { //if empty: take default from sap.ui/deviceTypes
+                            "desktop": true, //true, false
+                            "tablet": true, //true, false
+                            "phone": false //true, false
+                        },
+                        "signature": {
+                            "parameters": { //mandatory
+                                "id": {
+                                    "required": true //true, false
+                                },
+                                "ContactName": {
+                                    "defaultValue": {
+                                        "value": "anonymous" //mandatory
+                                    },
+                                    "required": false,
+                                    "renameTo": "NAME2"
+                                },
+                                "Gender": {
+                                    "filter": {
+                                        "value": "(male)|(female)", //mandatory
+                                        "format": "regexp"
+                                    },
+                                    "required": true
+                                    "renameTo": "SEX"
+                                }
+                            },
+                            "additionalParameters": "ignored" //mandatory; values: "ignored", "allowed", "notallowed"
+                        }
+                    },
+                "contactDisplay":
+                    {
+                        "semanticObject": "Contact",
+                        "action": "display",
+                        "signature": {
+                            "parameters": {
+                                "id": {
+                                    "required": true
+                                },
+                                "Language": {
+                                    "filter": {
+                                        "value": "EN"
+                                    },
+                                    "required": true
+                                },
+                                "SomeValue": {
+                                    "filter": {
+                                        "value": "4711"
+                                    }
+                                },
+                                "GLAccount": {
+                                    "defaultValue": {
+                                        "value": "1000"
+                                    },
+                                    "filter": {
+                                        "value": "(1000)|(2000)",
+                                        "format": "regexp"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                "contactDisplayAlt":
+                    {
+                        "semanticObject": "Contact",
+                        "action": "display",
+                        "signature": {
+                            "parameters": {
+                                "GLAccount": {
+                                    "defaultValue": {
+                                        "value": "UserDefault.GLAccount",
+                                        "format": "reference"
+                                    },
+                                    "filter": {
+                                        "value": "\\d+",
+                                        "format": "regexp"
+                                    },
+                                    "required": true
+                                },
+                                "SomePar": {
+                                    "filter": {
+                                        "value": "UserDefault.CostCenter",
+                                        "format": "reference"
+                                    },
+                                    "required": true
+                                }
+                            }
+                        }
+                    }
+            },
+            "outbounds": {
+                "addressDisplay":
+                    {
+                        "semanticObject": "Address", //mandatory
+                        "action": "display", //mandatory
+                        "parameters": {
+                            "companyName": {}
+                        }
+                    },
+                "companyDisplay":
+                    {
+                        "semanticObject": "Company",
+                        "action": "display",
+                        "parameters": {
+                            "companyName": {}
+                        }
+                    }
+            }
+        }
+    },
+
+    "sap.ui": { //general ui attributes - in sap.ui namespace
+
+        "technology": "UI5" //mandatory; app type such as UI5, WDA, NWBC, URL, GUI (new)
+        "icons": { //name/value pairs with defined attribute names for the usage, formerly stored under "config"
+            "icon": "sap-icon://add-contact",
+            "favIcon": "icon/F1373_Approve_Purchase_Orders.ico", //the ICO file to be used inside the browser and for desktop shortcuts
+            "phone": "icon/launchicon/57_iPhone_Desktop_Launch.png", //57x57 pixel version for non-retina iPhones
+            "phone@2": "icon/launchicon/114_iPhone-Retina_Web_Clip.png", //114x114 pixel version for retina iPhones
+            "tablet": "icon/launchicon/72_iPad_Desktop_Launch.png", //72x72 pixel version for non-retina iPads
+            "tablet@2": "icon/launchicon/144_iPad_Retina_Web_Clip.png" //144x144 pixel version for retina iPads
+        },
+        "deviceTypes": { //mandatory; needed for docu
+            "desktop": true, //mandatory; true, false
+            "tablet": true, //mandatory; true, false
+            "phone": false //mandatory; true, false
+        },
+        "supportedThemes": [ //mandatory; only SAP themes, needed for docu and mobile packaging
+            "sap_hcb", "sap_bluecrystal"
+        ],
+        "fullWidth": true //to indicate whether app should run in full screen mode (formerly under sap.ui5/config), true, false
+    },
+   
+    "sap.ui5": { //SAPUI5-specific attributes - in sap.ui5 namespace
+
+        "resources":{ //relative urls inside component, taking embeddedBy into account if filled, pointing to JavaScript/CSS resources that your app needs (app internal), formerly called "includes"
+            "js": [{
+                "uri": "component.js" //mandatory
+            }],
+            "css": [{
+                "uri": "component.css", //mandatory
+                "id": "componentcss" //id optional as style tags
+            }]
+        },
+        "dependencies": { //mandatory; external dependencies
+            "minUI5Version": "1.38.0" , //mandatory; minimum version of ui5 dist layer
+            "libs": { //used ui5 libraries/Fiori libraries (have to be filled properly for UI5 apps)
+                "sap.m": {
+                    "minVersion": "1.34.0" //minimum version
+                },
+                "sap.ui.commons": {
+                    "minVersion": "1.34.0" , //minimum version
+                    "lazy": "true //values true/false (default: false)
+                    }
+                }
+            }
+            "components": { //used ui5 components (have to be filled properlx for UI5 apps)
+                "sap.ui.app.other": {
+                    "minVersion": "1.1.0" //minimum version
+                    "lazy": "true //values true/false (default: false)
+                }
+            }
+        }, 
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties" //relative url inside component, taking embeddedBy into account if filled, or server absolute
+            },
+            "equipment": { //empty string "" is the default model
+                "preload": true; //indicator that the model will be created immediately after the manifest is loaded by component factory and before the component instance is created
+                "dataSource": "equipment", //reference of dataSource under sap.app - only enhance it with more settings for UI5 if needed
+                "settings": {
+                }
+            }
+        },
+        "rootView": "sap.ui.test.view.Main", //root view
+        "handleValidation": true, //true, false (default), to enable/disable validation handling by MessageManager for this component
+        "config": {
+            //configuration
+        },
+        "routing": {
+            //navigation
+        },
+        "extends": { //extends another component
+            "component": "sap.fiori.otherApp",
+            "minVersion": "0.8.15" //minimal version
+            "extensions": { //formerly called customizing
+                //extensions
+            }
+        },
+        "contentDensities": { //mandatory
+            "compact": true, //mandatory, true, false
+            "cozy": false    //mandatory, true, false
+        },
+        "resourceRoots": {
+            ".myname": "./myname" //only relative paths inside component are allowed, no "..", for real sub-packages of the component only (must not be used for component namespace itself)
+        };
+        "componentName": "sap.fiori.appName", //UI5 component name (to be filled by Tools and Templates)
+        "autoPrefixId": true //true, false
+        
+
+        }  
+    }, 
+
+    "sap.platform.abap": { //ABAP-platform-specific attributes
+        "uri": "/sap/bc/ui5_ui5/sap/appName", //uri of the app in the ABAP system
+        "uriNwbc": "" //represents alternative uri for starting application for legacy apps, such as WDA/SAP GUI, generated by export tool
+    },
+
+    "sap.platform.hcp": { //HANA-Cloud-Platform-specific attributes
+        "uri": "", //uri inside the SAP HANa cloud platform HTML5 application; default is ""
+        "uriNwbc": "" //represents alternative uri for starting application for legacy apps, such as WDA/SAP GUI, generated by export tool
+        "providerAccount": "fiori", //provider account (not to be filled by Fiori apps, only during deployment)
+        "appName": "sapfioriappName" //HTML5 app name (not to be filled by Fiori apps, only during deployment)
+        "appVersion": "1.0.0" //HTML5 app version(not to be filled by Fiori apps, only during deployment)
+    },
+
+
+    //other namespaces
+    "sap.mobile": { //in Mobile responsibility
+        ...
+    },
+    "sap.flp": { //in FLP responsibility
+        ...
+    },
+    "sap.ui.generic.app": { //in SAP Fiori elements responsibility
+        ...
+    },
+    "sap.ovp": { //in Overview Page responsibility
+        ...
+    },
+    "sap.ui.smartbusiness.app": { //in Smart Business responsibility
+         ...
+    },
+    "sap.wda": { //in Web Dypro ABAP responsibility
+        ...
+    },
+    "sap.gui": { //in SAP GUI responsibility
+        ...
+    },
+    "sap.cloud.portal": { //in SAP Cloud Portal responsibility
+        ...
+    },
+    "sap.apf": { //in analysis path framework responsibility
+        ...
+    }
+ }
