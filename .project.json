@@ -39,5 +39,10 @@
     "services": {
       "js": "fioriJsValidator"
     }
+  },
+  "hcpdeploy": {
+    "account": "w5cbe0c83",
+    "name": "vabeltesting",
+    "lastVersionWeTriedToDeploy": "1.0.4"
   }
 }

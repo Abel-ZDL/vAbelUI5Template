@@ -24,6 +24,13 @@
 					"localUri": "localService/metadata.xml"
 				},
 				"uri": "localService/metadata.xml"
+			},
+			"invoiceRemote": {
+				"uri": "/destinations/northwind/V2/Northwind/Northwind.svc/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
 			}
 		}
 	},
@@ -43,7 +50,10 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": ["sap_hcb", "sap_belize"]
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
 	},
 	"sap.ui5": {
 		"_version": "1.1.0",
@@ -71,14 +81,23 @@
 				}
 			},
 			"": {
-			    "type": "sap.ui.model.json.JSONModel",
+				"type": "sap.ui.model.json.JSONModel",
 				"uri": "model/UIModel.json"
+			},
+			"invoice": {
+				"dataSource": "invoiceRemote"
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
 	}
 }

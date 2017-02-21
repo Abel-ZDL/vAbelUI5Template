@@ -25,6 +25,22 @@ sap.ui.define([
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
+			
+			
+			
+			/* destinations in the neo-app.json
+			//var oModel = new sap.ui.model.json.JSONModel("/destinations/ems_backend_service");
+			
+			// var sData = jQuery.ajax({
+			// 	type: "GET",
+			// 	contentType: "text/html;charset=UTF-8",
+			// 	url: "/destinations/ems_backend_service",
+			// 	async: false,
+			// 	success: function(data, textStatus, jqXHR){
+			// 	}
+				
+			// });
+			*/
 		}
 	});
 
